@@ -1,2 +1,4 @@
 iqoptionapi
 numpy
+uvicorn
+fastapi
