@@ -1,6 +1,6 @@
 import os
 from fastapi import FastAPI
-from iqoptionapi import IQOptionAPI
+from iqoptionapi.stable_api import IQ_Option
 import time
 
 app = FastAPI()
