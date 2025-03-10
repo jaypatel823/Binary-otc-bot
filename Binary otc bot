@@ -1,0 +1,30 @@
+from fastapi import FastAPI
+from iqoptionapi.stable_api import IQ_Option
+import time
+
+app = FastAPI()
+
+# IQ Option लॉगिन
+email = "your_email"
+password = "your_password"
+Iq = IQ_Option(email, password)
+Iq.connect()
+
+markets = ["EURUSD-OTC", "GBPUSD-OTC", "USDJPY-OTC"]
+timeframe = 60
+
+def get_signals():
+    signals = []
+    for market in markets:
+        candles = Iq.get_candles(market, timeframe, 50, time.time())
+        last_price = candles[-1]['close']
+        signals.append({"market": market, "signal": "BUY" if last_price > candles[-2]['close'] else "SELL"})
+    return signals
+
+@app.get("/signals")
+def fetch_signals():
+    return {"signals": get_signals()}
+fastapi
+uvicorn
+iqoptionapi
+numpy
